@@ -11,5 +11,4 @@ const helloWorld = async (req, res) => {
 
 module.exports = {
     getTaxiRecords,
-    helloWorld,
 };
