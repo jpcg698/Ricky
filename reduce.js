@@ -1,43 +1,46 @@
 class Exatec {
-    constructor(name, semester, major) {
-        this.name = name;
-        this.semester = semester;
-        this.major = major;
-    }
+  constructor({name, semester, major}) {
+    this.name = name;
+    this.semester = semester;
+    this.major = major;
+  }
 }
 const students = [
-    {
-        name: 'Ricardo',
-        semester: '9',
-        major: 'ISC',
-        isGraduated : true
-    }, {
-
-        name: 'Gera',
-        semester: '1',
-        major: 'IBT',
-        isGraduated : false
-    }, {
-
-        name: 'Emmanuel',
-        semester: '9',
-        major: 'ISC',
-        isGraduated : true
-    },
-]
+  {
+    name: "Ricardo",
+    semester: "9",
+    major: "ISC",
+    isGraduated: true
+  },
+  {
+    name: "Gera",
+    semester: "1",
+    major: "IBT",
+    isGraduated: false
+  },
+  {
+    name: "Emmanuel",
+    semester: "9",
+    major: "ISC",
+    isGraduated: true
+  }
+];
 
 let exatecsArray = students
-.filter((a) => a.isGraduated ==true)
-.map(({...a})=>{
-  delete a.isGraduated
-  return a})
+  .filter((a) => a.isGraduated === true)
+  .map(({ ...a}) => {
+    delete a.isGraduated;
+    return new Exatec({...a});
+  });
 
-let message = "This years exatecs are: "+[...students].filter(({...a}) => a.isGraduated ==true).reduce((a, b) => {
-  let midString = a + b.name + " from " +(b.major?b.major:b) +" and "
-  return midString},"")
+let message = [...students]
+  .filter(({ ...a }) => a.isGraduated === true)
+  .reduce((a, b) => {
+    return `${a} ${b.name} from ${b.major} and`;
+  }, "This years exatecs are:");
 
-console.log(exatecsArray)
-console.log(message)
+console.log({ exatecsArray });
+console.log({ message });
 // Expected Output
 // [
 //     { name: 'Ricardo', semester: '9', major: 'ISC'  },
