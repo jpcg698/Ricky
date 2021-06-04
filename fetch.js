@@ -1,22 +1,41 @@
-const fetch = require('node-fetch')
+import "./styles.css";
+
+const fetch = require("node-fetch");
 
 const getPokemons = async ({ limit = 10 }) => {
-    //Use fetch to this API https://pokeapi.co/api/v2
-    //Make sure to not retrieve one specific pokemon, you need to retrieve multiple pokemons
-    const res =  siguele aqui jeipi
-    const jsonParseado = eee investigale papi
-    return nose;
-}
+  //Use fetch to this API https://pokeapi.co/api/v2
+  //Make sure to not retrieve one specific pokemon, you need to retrieve multiple pokemons
+  let pokeList = await fetch(
+    "https://pokeapi.co/api/v2/pokemon?limit=" + limit
+  );
+  let pokemons = await pokeList.json();
+  //console.log(pokemons.results)
+  return pokemons; //nose;
+};
+
+const getData = async ({ url }) => {
+  //Use fetch to this API https://pokeapi.co/api/v2
+  //Make sure to not retrieve one specific pokemon, you need to retrieve multiple pokemons
+  let response = await fetch(url);
+  let data = await response.json();
+  //console.log(data.weight)
+  return { weight: data.weight, name: data.name }; //nose;
+};
 
 const getPokemon = async (limit) => {
-    let poke = await getPokemons({ limit });
-    const pokemons = poke.results.map(({ url }) => {
-        //Fetch one specific pokemon for every url in the poke.results array
-        //Then get the weight and name from the result and return it
-        return { weight, name };
-    });
-    return pokemons
-}
+  let poke = await getPokemons({ limit });
+  //console.log(poke);
+  const pokemons = Promise.all(
+    poke.results.map(async ({ url }) => {
+      const data = await getData({ url });
+      //console.log(weight)
+      //Fetch one specific pokemon for every url in the poke.results array
+      //Then get the weight and name from the result and return it
+      return { data };
+    })
+  );
+  return pokemons;
+};
 
 getPokemon(2).then(pokemon => {
     //console.log every pokemon
